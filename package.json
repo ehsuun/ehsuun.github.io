@@ -1,0 +1,38 @@
+{
+    "title": "Intedisciplinary Education Guide",
+    "name": "IEGuide",
+    "version": "4.0.5",
+    "description": "Clean Blog is a Medium inspired blog theme for Bootstrap.",
+    "keywords": [
+        "css",
+        "sass",
+        "html",
+        "responsive",
+        "theme",
+        "template"
+    ],
+    "homepage": "https://ieguide.github.io",
+    "bugs": {
+        "url": "https://github.com/IEGuide/ieguide.github.io/issues",
+        "email": "feedback@startbootstrap.com"
+    },
+    "license": "MIT",
+    "author": "Start Bootstrap",
+    "contributors": [
+        "David Miller (http://davidmiller.io/)"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/IEGuide/ieguide.github.io.git"
+    },
+    "dependencies": {
+        "bootstrap": "4.3.1",
+        "font-awesome": "4.7.0",
+        "jquery": "3.3.1",
+        "startbootstrap-clean-blog": "5.0.4"
+    },
+    "devDependencies": {
+        "browser-sync": "2.26.3",
+        "gulp": "4.0.0"
+    }
+}
