@@ -1,2 +1,2 @@
-#IEGuide Github page
-This repo is being used to host the IEGuide website on Github!
+#Ehsan Sayyad's website
+This repo is being used to host my personal website on Github!
