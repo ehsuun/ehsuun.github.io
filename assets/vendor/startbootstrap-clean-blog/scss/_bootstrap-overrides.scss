@@ -1,11 +1,28 @@
 // Bootstrap overrides for this template
 
-@import "https://fonts.googleapis.com/css?family=Roboto&display=swap";
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,400,900&display=swap');
 
 body{  
     font-family: 'Roboto', sans-serif;
-
 }
+
+h2 h4{
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: 50;
+}
+
+.display-2{
+  font-family: 'Roboto', sans-serif; 
+  font-weight: 100;
+  font-size: medium;
+  
+}
+
+.display-4{
+  font-family: 'Roboto', sans-serif; 
+  font-weight: 100;
+}
+
 
 .btn {
   font-size: 14px;
