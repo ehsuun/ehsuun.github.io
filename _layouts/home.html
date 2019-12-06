@@ -3,14 +3,14 @@ layout: empty
 ---
 
 
-<div id="canvas"></div>
+
   <div class="container-fluid d-flex justify-content-center text-dark mh-100 flex-direction: column" style="min-height: 100vh;">
       
       <div class="row min-vw-100 align-self-center">
           <div class="col-lg-8 col-md-10 mx-auto" >
               <div class="d-flex flex-column">
-                  <div class="p-2 align-self-center">
-                      
+                  <div id="canvas" class="p-2 align-self-center"></div>
+                  <div class="p-2 align-self-center">  
                       <h1  class="display-2"> Ehsan Sayyad</h1>    
                   </div>
                   <div class="p-2 align-self-center mt-5">
@@ -26,7 +26,7 @@ layout: empty
   </div>
 
   <style>
-  #canvas{
+  #canvas2{
   position: fixed;
   width:100vw;
   height:100vh;
@@ -40,39 +40,137 @@ layout: empty
 			if ( window.innerWidth === 0 ) { window.innerWidth = parent.innerWidth; window.innerHeight = parent.innerHeight; }
 							
               var camera, scene, renderer;
-              var geometry, material, mesh;
+              var geometry, material, mesh,debug1mesh,debug2mesh;
+              var forces =[];
+              var mousePos= new THREE.Vector2();
+              var hitpoint= new THREE.Vector3();
+              var lerphitpoint = new THREE.Vector3();
+              var referenceGeometry;
+              var raycaster = new THREE.Raycaster();
+              var canvas;
+              const pickPosition = {x: 0, y: 0};
+              clearPickPosition();
         
               init();
               animate();
+
+              window.addEventListener('mousemove', setPickPosition);
+              //window.addEventListener('mouseout', clearPickPosition);
+              //window.addEventListener('mouseleave', clearPickPosition);
         
               function init() {
                 
-                camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 2, 1000 );
-                camera.position.z = 600;
-                camera.position.y = -280;
+                camera = new THREE.PerspectiveCamera( 30, 1, 2, 1000 );
+                camera.position.z = 450;
+                camera.position.y = 0;
         
                 scene = new THREE.Scene();
         
                 geometry = new THREE.IcosahedronGeometry( 100, 1 );
-                material = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true, wireframeLinewidth: 1 } );
+                referenceGeometry = new THREE.Geometry();
+                forces = [geometry.vertices.length];
+				        referenceGeometry.copy(geometry);
+
+                material = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true, wireframeLinewidth: 2 } );
         
                 mesh = new THREE.Mesh( geometry, material );
+                ormesh = new THREE.Mesh( referenceGeometry, material );
                 scene.add( mesh );
-        
-                renderer = new THREE.WebGLRenderer( { antialias: true } );
+
+                debug1 = new THREE.IcosahedronGeometry( 10, 1 );
+                var material2 = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true, wireframeLinewidth: 2 } );
+                var material3 = new THREE.MeshBasicMaterial( { color: 0xff00ff, wireframe: true, wireframeLinewidth: 2 } );
+                debug1mesh = new THREE.Mesh( debug1, material2 );
+                debug2mesh = new THREE.Mesh( debug1, material3 );
+
+                //scene.add( debug1mesh );
+                //scene.add( debug2mesh );
+
+                renderer = new THREE.WebGLRenderer();
 				        renderer.setClearColor( 0xffffff );
-                renderer.setSize( window.innerWidth, window.innerHeight );
+                renderer.setSize( window.innerWidth/2, window.innerWidth/2 );
                 var container = document.getElementById( 'canvas' );
                 container.appendChild( renderer.domElement );
-        
+                canvas = renderer.getContext().canvas;
+  
+                
+                for (var i = 0; i < geometry.vertices.length; i++) {
+                  forces[i] = new THREE.Vector3();
+                  var v = new THREE.Vector3( Math.random() -0.5, 0, Math.random()-0.5 );
+                  v.multiplyScalar(100);
+                  
+                  geometry.vertices[i].add(v);
+                }
+                geometry.verticesNeedUpdate = true;
+                referenceGeometry.verticesNeedUpdate = true;
+
               }
-        
+
+
+
+ 
+              function getCanvasRelativePosition(event) {
+                const rect = canvas.getBoundingClientRect();
+                return {
+                  x: event.clientX - rect.left,
+                  y: event.clientY - rect.top,
+                };
+              }
+              
+              function setPickPosition(event) {
+                const pos = getCanvasRelativePosition(event);
+                pickPosition.x = (pos.x / canvas.clientWidth ) *  2 - 1;
+                pickPosition.y = (pos.y / canvas.clientHeight) * -2 + 1;  // note we flip Y
+
+
+
+              }
+              
+              function clearPickPosition() {
+                // unlike the mouse which always has a position
+                // if the user stops touching the screen we want
+                // to stop picking. For now we just pick a value
+                // unlikely to pick something
+                pickPosition.x = -100000;
+                pickPosition.y = -100000;
+              }
+              
+
+              
               function animate() {
+                raycaster.setFromCamera( pickPosition, camera );
+
+                // calculate objects intersecting the picking ray
+                var intersects = raycaster.intersectObject(ormesh);
+
+                if(intersects.length>0){
+                  for ( var i = 0; i < intersects.length; i++ ) {
+                  hitpoint = intersects[ i ].point;
+                }
+                }else{
+                  hitpoint.x=0;
+                  hitpoint.y=0;
+                }
         
                 requestAnimationFrame( animate );
         
                 mesh.rotation.x += 0.002;
                 mesh.rotation.y += 0.003;
+
+                ormesh.rotation.x += 0.002;
+                ormesh.rotation.y += 0.003;
+
+                localhit = mesh.worldToLocal(hitpoint);
+
+                for (var i = 0; i < geometry.vertices.length; i++) {
+                  forces[i].copy(referenceGeometry.vertices[i]);
+                  forces[i].sub(localhit);
+                  var f = forces[i].clone();
+                 //f.setLength(1000/f.lengthSq());
+                  f.setLength(20);
+					        geometry.vertices[i].copy(referenceGeometry.vertices[i]).sub(f);
+                }
+                geometry.verticesNeedUpdate = true;
         
                 renderer.render( scene, camera );
         
