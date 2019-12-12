@@ -1,6 +1,6 @@
 {
     "title": "Intedisciplinary Education Guide",
-    "name": "IEGuide",
+    "name": "EhsanSayyad",
     "version": "4.0.5",
     "description": "Clean Blog is a Medium inspired blog theme for Bootstrap.",
     "keywords": [
@@ -11,9 +11,9 @@
         "theme",
         "template"
     ],
-    "homepage": "https://ieguide.github.io",
+    "homepage": "https://ehsuun.github.io",
     "bugs": {
-        "url": "https://github.com/IEGuide/ieguide.github.io/issues",
+        "url": "https://github.com/ehsuun/ehsuun.github.io/issues",
         "email": "feedback@startbootstrap.com"
     },
     "license": "MIT",
@@ -23,7 +23,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/IEGuide/ieguide.github.io.git"
+        "url": "https://github.com/ehsuun/ehsuun.github.io.git"
     },
     "dependencies": {
         "bootstrap": "4.3.1",
