@@ -27,9 +27,9 @@ layout: empty
 
   <style>
   canvas{
-    max-width: 350pt;
+    max-width: 320pt;
     
-    max-height: 350pt;
+    max-height: 320pt;
     
   }
   </style>
@@ -72,7 +72,7 @@ layout: empty
       forces = [geometry.vertices.length];
       referenceGeometry.copy(geometry);
 
-      material = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true, wireframeLinewidth: 10 } );
+      material = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true, wireframeLinewidth: 2 } );
 
       mesh = new THREE.Mesh( geometry, material );
       ormesh = new THREE.Mesh( referenceGeometry, material );
@@ -80,8 +80,8 @@ layout: empty
       scene.add( mesh );
 
       debug1 = new THREE.IcosahedronGeometry( 10, 1 );
-      var material2 = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true, wireframeLinewidth: 10 } );
-      var material3 = new THREE.MeshBasicMaterial( { color: 0xff00ff, wireframe: true, wireframeLinewidth: 10 } );
+      var material2 = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true, wireframeLinewidth: 2 } );
+      var material3 = new THREE.MeshBasicMaterial( { color: 0xff00ff, wireframe: true, wireframeLinewidth: 2 } );
       debug1mesh = new THREE.Mesh( debug1, material2 );
       debug2mesh = new THREE.Mesh( debug1, material3 );
 
