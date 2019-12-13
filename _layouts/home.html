@@ -32,6 +32,14 @@ layout: empty
     max-height: 260pt;
     
   }
+
+  html, body {
+  overflow-x: hidden;
+  }
+  body {
+    position: relative;
+    touch-action: none;
+  }
   </style>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.min.js" integrity="sha256-Wua0LsQkGDEeIkbmBNjj9wcThJh5uCD6R8+5YQhXveQ=" crossorigin="anonymous"></script>
@@ -77,7 +85,7 @@ layout: empty
       mesh = new THREE.Mesh( geometry, material );
       ormesh = new THREE.Mesh( referenceGeometry, material );
       var planegeo = new THREE.PlaneGeometry( 2000, 2000, 1,1 );
-      var planemat = new THREE.MeshBasicMaterial( {color: 0xffff00,  wireframe: true, side: THREE.DoubleSide} );
+      var planemat = new THREE.MeshBasicMaterial( {color: 0xffffff,  wireframe: true, side: THREE.DoubleSide} );
       plane = new THREE.Mesh( planegeo, planemat );
       plane.position.y = 10;
       scene.add( plane );
@@ -188,5 +196,3 @@ layout: empty
   </script>
 
 
-
-</VI>
