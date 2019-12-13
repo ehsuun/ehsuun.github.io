@@ -47,6 +47,7 @@ layout: empty
   <script>
 
     document.body.addEventListener('touchstart', function(e){ e.preventDefault(); });
+
     if ( window.innerWidth === 0 ) { window.innerWidth = parent.innerWidth; window.innerHeight = parent.innerHeight; }
 							
     var camera, scene, renderer;
@@ -65,6 +66,7 @@ layout: empty
     animate();
 
     window.addEventListener('mousemove', setPickPosition);
+    window.addEventListener("touchmove", setPickPositionTouch, false);
     //window.addEventListener('mouseout', clearPickPosition);
     //window.addEventListener('mouseleave', clearPickPosition);
     function init() {
@@ -133,16 +135,28 @@ layout: empty
         y: event.clientY - rect.top,
       };
     }
+
+    function getCanvasRelativePositionTouch(event) {
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: event.touches[0].clientX - rect.left,
+        y: event.touches[0].clientY - rect.top,
+      };
+    }
+
     
     function setPickPosition(event) {
       const pos = getCanvasRelativePosition(event);
       pickPosition.x = (pos.x / canvas.clientWidth ) *  2 - 1;
       pickPosition.y = (pos.y / canvas.clientHeight) * -2 + 1;  // note we flip Y
-
-
-
     }
     
+    function setPickPositionTouch(event) {
+      const pos = getCanvasRelativePositionTouch(event);
+      pickPosition.x = (pos.x / canvas.clientWidth ) *  2 - 1;
+      pickPosition.y = (pos.y / canvas.clientHeight) * -2 + 1;  // note we flip Y
+    }
+
     function clearPickPosition() {
       // unlike the mouse which always has a position
       // if the user stops touching the screen we want
