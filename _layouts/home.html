@@ -179,17 +179,17 @@ layout: empty
         hitpoint = intersects[ 0 ].point;
       }
       }else{
-        hitpoint.x=0;
-        hitpoint.y=0;
+        hitpoint.x=50;
+        hitpoint.y=-50;
       }
 
       requestAnimationFrame( animate );
 
-      mesh.rotation.x += 0.002;
-      mesh.rotation.y += 0.003;
+      mesh.rotation.x -= hitpoint.y/10000;
+      mesh.rotation.y -= hitpoint.x/10000;
 
-      ormesh.rotation.x += 0.002;
-      ormesh.rotation.y += 0.003;
+      ormesh.rotation.x = mesh.rotation.x;
+      ormesh.rotation.y = mesh.rotation.y;
 
       localhit = mesh.worldToLocal(hitpoint);
 
