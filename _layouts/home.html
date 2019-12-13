@@ -27,9 +27,9 @@ layout: empty
 
   <style>
   canvas{
-    max-width: 310pt;
+    max-width: 260pt;
     
-    max-height: 310pt;
+    max-height: 260pt;
     
   }
   </style>
@@ -61,7 +61,7 @@ layout: empty
     //window.addEventListener('mouseleave', clearPickPosition);
     function init() {
       
-      camera = new THREE.PerspectiveCamera( 25, 1, 2, 1000 );
+      camera = new THREE.PerspectiveCamera( 30, 1, 2, 1000 );
       camera.position.z = 450;
       camera.position.y = 0;
 
@@ -76,6 +76,11 @@ layout: empty
 
       mesh = new THREE.Mesh( geometry, material );
       ormesh = new THREE.Mesh( referenceGeometry, material );
+      var planegeo = new THREE.PlaneGeometry( 2000, 2000, 1,1 );
+      var planemat = new THREE.MeshBasicMaterial( {color: 0xffff00,  wireframe: true, side: THREE.DoubleSide} );
+      plane = new THREE.Mesh( planegeo, planemat );
+      plane.position.y = 10;
+      scene.add( plane );
 
       scene.add( mesh );
 
@@ -145,11 +150,11 @@ layout: empty
       raycaster.setFromCamera( pickPosition, camera );
 
       // calculate objects intersecting the picking ray
-      var intersects = raycaster.intersectObject(ormesh);
+      var intersects = raycaster.intersectObjects([plane,ormesh]);
 
       if(intersects.length>0){
         for ( var i = 0; i < intersects.length; i++ ) {
-        hitpoint = intersects[ i ].point;
+        hitpoint = intersects[ 0 ].point;
       }
       }else{
         hitpoint.x=0;
