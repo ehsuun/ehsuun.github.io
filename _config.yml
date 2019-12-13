@@ -1,14 +1,14 @@
-title:             A Guide To Interdisciplinary Education
-email:             your-email@example.com
-description:       A Guide To Interdisciplinary Education
-author:            IEGuide @UCSB
+title:             Ehsan Sayyad
+email:             ehsanATmatDOTucsbDOTedu
+description:       Ehsan Sayyad is a Virtual Reality researcher, Interested in computer graphics and HCI.
+author:            Ehsan Sayyad
 baseurl:           "/"
-url:               "http://ieguide.github.io"
+url:               "http://www.ehsansayyad.com"
 
 # Social Profiles
-#twitter_username:  ieguide
-#github_username:   IEGuide
-#facebook_username: IEGuide
+#twitter_username:  
+#github_username:   
+#facebook_username: 
 
 # Build settings
 markdown:          kramdown
