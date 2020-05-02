@@ -166,12 +166,77 @@ var hints = [
         `
     },
     {
-        words:['golden gate','potato'],
+        words:['golden gate','bridge'],
         hint:`
-        Alright this might sound funny or may be a weird stunt.
-        But I thought you might be down for a little treasure hunt!
+        Big Bridges like golden gate are all cool and all.
+        Some are also cool but are just a little small.
+
+        All the way to the middle while facing the big four.
+        A gap is always a good sign when looking for a score.
         `
-    }
+    },
+    {
+        words:['garden','sbcc'],
+        hint:`
+        This shall be too easy so don't let your hopes harden.
+        Find the familiar spot in behind the hawaiian garden.
+        (I had to!)
+
+        You might need to search there just a little more.
+        look for a thing that we had together killed before.
+        `
+    },
+    {
+        words:['sheepbutt','sheep butt'],
+        hint:`
+        This one we havnt't been to and the city is very huge.
+        You might just want to google the words "bird refuge"
+
+        Somewhere with a nice view, beautiful and calm.
+        Where the flags align with the big hairy palm.
+        `
+    },
+    {
+        words:['josh','joshua'],
+        hint:`
+        A neighbourhood that living there is what every one wants.
+        Fancy little stores with delicious croissants.
+
+        You are doing great babe we should keep the pace!
+        Find the little dragon under the stairway to chase.
+        `
+    },
+    {
+        words:['kombucha'],
+        hint:`
+        A place where you learn to be a rockstar.
+        green beautiful and lush and not that very far.
+
+        have the headless to your left and wingies to your right hand.
+        follow the straight line till you get to the shroomland!
+        `
+    },
+    {
+        words:['wind caves','windcaves','windcave'],
+        hint:`
+        Let's have little chat with the spirits of the dead.
+        Follow your gut to the place that is ahead.
+
+        You respect all the plants with appreciation.
+        Doing it while next to Jose's creation.
+        `
+    },
+    {
+        words:['train','traintrack','train track'],
+        hint:`
+        That's about it in the wild. shall we grab a bite?
+        or walk by the beach while the sky is bright.
+
+        Oh if you expeced a treasure well we have that ahead!
+        When we get back home maybe check under your bed?
+        `
+    },
+    
 ];
 
 var button = document.querySelector('#whisper');
@@ -179,18 +244,25 @@ var hintText = document.querySelector('#hintText');
 
 hintText.innerText = hints[0].hint;
 
-
+errortexts = ["hmmm maybe not?","Sorry?","I don't know!","what was that?"];
 
 button.addEventListener("click",()=>{
     secret = document.querySelector('#secretinput').value.toLowerCase();
 
+    var found = false;
     for(var i=0;i<hints.length;i++){
         for(var j=0;j<hints[i].words.length;j++){
             current = hints[i].words[j].toLowerCase();
             if(secret === current){
                 hintText.innerText = hints[i].hint;
+                found = true;
+                break;
             }
         }
+    }
+    if(!found){
+       var ind =  Math.floor(Math.random() * 4);
+       hintText.innerText = errortexts[ind];
     }
     
 });
